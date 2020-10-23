@@ -1,5 +1,5 @@
 const LOGO_TOP_MARGIN = 100.0;
-const LEFT_MARGIN = 12.0;
+const LEFT_MARGIN = 30.0;
 const TOP_MARGIN = 12.0;
 const RIGHT_MARGIN = 12.0;
 const BOTTOM_MARGIN  = 12.0;
@@ -15,7 +15,7 @@ const NO_PADDING = 0.0;
 
 const MARGIN = 12.0;
 
-const FONT_SIZE_WELCOME = 26.0;
+const FONT_SIZE_WELCOME = 34.0;
 const FONT_SIZE_MEDIUM = 18.0;
 const FONT_SIZE_LARGE = 20.0;
 

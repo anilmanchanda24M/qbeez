@@ -7,11 +7,9 @@ class Repository{
 
   final apiProvider = ApiProvider();
 
-  Future<SignUpResponse> signUp(
-      String name, String email, String phoneNumber, String password,
-      String firebase_token, String longitude, String latitude) =>
-      apiProvider.signUp(name, email, phoneNumber, password, firebase_token,
-          longitude, latitude);
+  Future<SignUpResponse> signUp(String fullName, String email, String phone, String password) =>
+      apiProvider.signUp(fullName, email,
+          phone, password);
 
   Future<LoginResponse> login(String userCred, String password,
       String longitude, String latitude, int roleType) =>

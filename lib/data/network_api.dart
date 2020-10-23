@@ -14,23 +14,20 @@ class ApiProvider{
         'Ostype': Platform.isAndroid ? 'ANDRIOD' : 'ios'
       }));
 
-  Future<SignUpResponse> signUp(String name, String email,
-      String phone_number, String password, String firebase_token,
-      String longitude, String latitude) async {
+  Future<SignUpResponse> signUp(String name, String email, String phone, String password) async {
 
     final map = {
       "name": name,
       "email": email,
-      "phone_number": phone_number,
+      "mobile": phone,
       "password": password,
-      "firebase_token": firebase_token,
-      "longitude": longitude,
-      "latitude": latitude
+      "user_type": Constants.USER_TYPE
     };
 
-    print("signup -> $map");
+    FormData data = FormData.fromMap(map);
+    print("register -> $map");
     try {
-      Response response = await _dioClient.post('register', data: map);
+      Response response = await _dioClient.post('register', data: data);
       dynamic json = jsonDecode(response.toString());
       print(response.data);
       if (response.data != "") {

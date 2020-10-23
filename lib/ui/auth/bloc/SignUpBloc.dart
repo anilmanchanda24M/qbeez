@@ -22,14 +22,13 @@ class SignUpBloc extends BaseBloc {
     _errorStream?.close();
   }
 
-  void signUpData(String name, String email, String phoneNumber, String password,
-      String firebase_token, String longitude, String latitude) async {
+  void signUpData(String fullName, String email, String phone, String password) async {
     print("calling");
     if (isLoading) return;
     isLoading = true;
     _loadingStream.sink.add(true);
-    SignUpResponse singUpData = await repository.signUp(name, email,
-        phoneNumber, password, firebase_token, longitude, latitude);
+    SignUpResponse singUpData = await repository.signUp(fullName, email,
+        phone, password);
     isLoading = false;
     _loadingStream.sink.add(isLoading);
     _signUpStream.sink.add(singUpData);

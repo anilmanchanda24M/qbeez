@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qubeez/ui/auth/bloc/SignUpBloc.dart';
 import 'package:qubeez/ui/otp.dart';
 import 'package:qubeez/utils/dimen/dimen.dart';
 import 'package:qubeez/utils/ui.dart';
@@ -16,6 +17,28 @@ class SignupScreen extends StatefulWidget{
 class _SignupScreen extends State<SignupScreen>{
 
   final GlobalKey<FormState> _formStateKey = GlobalKey();
+  final GlobalKey<ScaffoldState> _globalKey = GlobalKey();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  SignUpBloc _signUpBloc = SignUpBloc();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _signUpBloc?.dispose();
+    _nameController?.dispose();
+    _emailController?.dispose();
+    _phoneController?.dispose();
+    _passwordController?.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,15 +135,13 @@ class _SignupScreen extends State<SignupScreen>{
                                 Padding(
                                     padding: EdgeInsets.all(PADDING_ALL_8)
                                 ),
-                                TextField(
-
+                                TextFormField(
+                                  controller: _nameController,
                                   decoration: InputDecoration(
                                       prefixIcon:
                                       Icon(
                                         Icons.person_outline,
-                                        color: Colors.purple,
-
-                                      ),
+                                        color: Colors.purple,),
                                       filled: true,
                                       fillColor: Colors.white,
                                       border: OutlineInputBorder(
@@ -131,13 +152,17 @@ class _SignupScreen extends State<SignupScreen>{
                                           )
                                       )
                                   ),
+                                  validator: (v) {
+                                    if (v.isEmpty) {
+                                      return 'Name should be mandatory';
+                                    } else if (v.length < 4) {
+                                      return 'Name should be 4 digits';
+                                    }
+                                    return null;
+                                  },
                                   style: TextStyle(
                                     color: Colors.purple,
-                                    fontSize: 18.0,
-
-
-                                  ),
-
+                                    fontSize: 18.0),
                                 ),
 
                               ],
@@ -163,22 +188,22 @@ class _SignupScreen extends State<SignupScreen>{
                                 Padding(
                                     padding: EdgeInsets.all(PADDING_ALL_8)
                                 ),
-                                TextField(
+                                TextFormField(
+                                  controller: _phoneController,
                                   decoration: InputDecoration(
+                                      counterText: "",
+                                      labelText: 'Mobile Number',
+                                      // prefixIcon: Icon(Icons.phone_android),
+                                      contentPadding: EdgeInsets.symmetric(vertical: 5),
                                       prefixIcon:
                                       Icon(
                                         Icons.phone_iphone,
-                                        color: Colors.purple,
-
-                                      ),
+                                        color: Colors.purple,),
                                       filled: true,
                                       fillColor: Colors.white,
                                       border: OutlineInputBorder(
-
                                           borderRadius: BorderRadius.all(
-                                              Radius.circular(30.0)
-
-                                          )
+                                              Radius.circular(30.0))
                                       )
                                   ),
                                   style: TextStyle(
@@ -186,7 +211,20 @@ class _SignupScreen extends State<SignupScreen>{
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.bold
                                   ),
+                                  maxLength: 10,
+                                  validator: (v) {
+                                    String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+                                    RegExp regExp = new RegExp(pattern);
 
+                                    if (v.isEmpty) {
+                                      return 'Mobile Number should be mandatory';
+                                    } else if (v.length != 10) {
+                                      return 'Mobile Number should be 10 digits';
+                                    }else if (!regExp.hasMatch(v)) {
+                                      return 'Mobile Number should be valid';
+                                    }
+                                    return null;
+                                  },
                                 ),
 
                               ],
@@ -212,21 +250,18 @@ class _SignupScreen extends State<SignupScreen>{
                                 Padding(
                                     padding: EdgeInsets.all(PADDING_ALL_8)
                                 ),
-                                TextField(
+                                TextFormField(
+                                  controller: _emailController,
                                   decoration: InputDecoration(
                                       prefixIcon:
                                       Icon(
                                         Icons.mail_outline,
-                                        color: Colors.purple,
-
-                                      ),
+                                        color: Colors.purple,),
                                       filled: true,
                                       fillColor: Colors.white,
                                       border: OutlineInputBorder(
-
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(30.0)
-
                                           )
                                       )
                                   ),
@@ -235,9 +270,20 @@ class _SignupScreen extends State<SignupScreen>{
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.bold
                                   ),
+                                  validator: (v) {
 
+                                    String pattern = r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
+                                    RegExp regExp = new RegExp(pattern);
+
+                                    if (v.isEmpty) {
+                                      return 'Email should be mandatory';
+                                    }else if (!regExp.hasMatch(v)) {
+                                      return 'Email should be Valid';
+                                    }
+
+                                    return null;
+                                  },
                                 ),
-
                               ],
                             ),
                           ),
@@ -261,7 +307,8 @@ class _SignupScreen extends State<SignupScreen>{
                                 Padding(
                                     padding: EdgeInsets.all(PADDING_ALL_8)
                                 ),
-                                TextField(
+                                TextFormField(
+                                  controller: _passwordController,
                                   decoration: InputDecoration(
                                       prefixIcon:
                                       Icon(
@@ -284,6 +331,14 @@ class _SignupScreen extends State<SignupScreen>{
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.bold
                                   ),
+                                  validator: (v) {
+                                    if (v.isEmpty) {
+                                      return 'Password should be mandatory';
+                                    }else if(v.length < 8){
+                                      return 'Password should be atleast 8 characters';
+                                    }
+                                    return null;
+                                  },
 
                                 ),
 
@@ -298,7 +353,16 @@ class _SignupScreen extends State<SignupScreen>{
                             child:RaisedButton(
 
                                 elevation: 8.0,
-                                onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => OTPScreen())),
+                                onPressed: (){
+                                  if (_formStateKey.currentState.validate()) {
+                                    String fullName = _nameController.text.toString();
+                                    String email = _emailController.text.toString();
+                                    String phone = _phoneController.text.toString();
+                                    String password = _passwordController.text.toString();
+
+                                    _signUpBloc.signUpData(fullName, email, phone, password);
+                                  }
+                                },/*Navigator.push(context, MaterialPageRoute(builder: (context) => OTPScreen())),*/
                                 color: Colors.white,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(22.0)
@@ -330,7 +394,14 @@ class _SignupScreen extends State<SignupScreen>{
                                     FlatButton(
                                       textColor: Colors.white,
                                       onPressed: () {
-                                      /*  if()*/
+                                        if (_formStateKey.currentState.validate()) {
+                                          String fullName = _nameController.text.toString();
+                                          String email = _emailController.text.toString();
+                                          String phone = _phoneController.text.toString();
+                                          String password = _passwordController.text.toString();
+
+                                          _signUpBloc.signUpData(fullName, email, phone, password);
+                                        }
                                       },
                                       child: Text("Sign in",
                                         style: TextStyle(

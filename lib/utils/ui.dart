@@ -22,3 +22,6 @@ const String profile1Image = "assets/images/account.svg";
 
 const String home1 = 'assets/images/home1.png';
 const String home2 = "assets/images/home3.png";
+const String splashBG = "assets/images/splash_bg.png";
+const String splashQbeezLogo = "assets/images/qbeez_logos.png";
+const String splashQbeezLogoText = "assets/images/qbeez_logo_text.png";

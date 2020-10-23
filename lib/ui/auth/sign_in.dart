@@ -12,61 +12,49 @@ class _SigninScreen extends State<SigninScreen>{
 
   @override
   Widget build(BuildContext context) {
-      return MaterialApp(
-
-        home: Scaffold(extendBody: true,
-          body:
-
-
-          Stack(
-            children: [
-              Container(
-              child: Image.asset(
-                  WELCOME_BACKGROUND_PATH, width: double.infinity, height: double.infinity,fit: BoxFit.fill,
-              ),
-              ),
-              SingleChildScrollView(
-              child:Column(
-
+      return Scaffold(extendBody: true,
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+                child:Column(
                     children:[
-
                       Container(
                         //color:Colors.blue,
                         alignment: Alignment.centerLeft,
                         margin: EdgeInsets.fromLTRB(LEFT_MARGIN, TOP_MARGIN_EXTRA,RIGHT_MARGIN, BOTTOM_MARGIN),
                         padding: EdgeInsets.all(PADDING_ALL_12),
-                          child:Column(
+                        child:Column(
 
-                            children: [
-                              Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
+                          children: [
+                            Icon(
+                              Icons.arrow_back,
+                              color: Colors.white,
 
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(PADDING_ALL_16),
-                          ),
-                          Text(
-                          "Sign in", textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: FONT_SIGNIN,color: Colors.white
-                          ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(PADDING_ALL_16),
+                            ),
+                            Text(
+                              "Sign in", textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: FONT_SIGNIN,color: Colors.white
+                              ),
 
-                        )
-                      ],
-                    ),
+                            )
+                          ],
+                        ),
                       ),
                       Container(
                         alignment: Alignment.centerLeft,
-                            margin: EdgeInsets.fromLTRB(LEFT_MARGIN, WELCOME_TOP_MARGIN, RIGHT_MARGIN, NO_MARGIN),
-                            padding: EdgeInsets.fromLTRB(PADDING_ALL_12,PADDING_ALL_12,PADDING_ALL_12,NO_PADDING),
+                        margin: EdgeInsets.fromLTRB(LEFT_MARGIN, WELCOME_TOP_MARGIN, RIGHT_MARGIN, NO_MARGIN),
+                        padding: EdgeInsets.fromLTRB(PADDING_ALL_12,PADDING_ALL_12,PADDING_ALL_12,NO_PADDING),
                         child: Text(
                           "Welcome Back",
-                              textAlign: TextAlign.left,
+                          textAlign: TextAlign.left,
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: FONT_SIZE_WELCOME,
-                            color: Colors.white
+                              fontWeight: FontWeight.bold,
+                              fontSize: FONT_SIZE_WELCOME,
+                              color: Colors.white
                           ),
                         ),
                       ),
@@ -97,18 +85,18 @@ class _SigninScreen extends State<SigninScreen>{
                             Text(
                               "Username or Email",textAlign: TextAlign.left,
                               style: TextStyle(
-                                color: Colors.white,
+                                  color: Colors.white,
                                   fontSize: 14.0,
                                   fontWeight: FontWeight.bold
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.all(PADDING_ALL_8)
+                                padding: EdgeInsets.all(PADDING_ALL_8)
                             ),
                             TextField(
                               decoration: InputDecoration(
-                                prefixIcon:
-                                   Icon(
+                                  prefixIcon:
+                                  Icon(
                                     Icons.person_outline,
                                     color: Colors.purple,
 
@@ -123,12 +111,12 @@ class _SigninScreen extends State<SigninScreen>{
                                       )
                                   )
                               ),
-                                  style: TextStyle(
-                                    color: Colors.purple,
-
-                                    ),
+                              style: TextStyle(
+                                color: Colors.purple,
 
                               ),
+
+                            ),
 
                           ],
                         ),
@@ -146,8 +134,8 @@ class _SigninScreen extends State<SigninScreen>{
                               "Password",textAlign: TextAlign.left,
                               style: TextStyle(
                                   color: Colors.white,
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.bold
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.bold
                               ),
                             ),
                             Padding(
@@ -172,7 +160,7 @@ class _SigninScreen extends State<SigninScreen>{
                                   )
                               ),
                               style: TextStyle(
-                                color: Colors.purple,
+                                  color: Colors.purple,
                                   fontSize: 14.0,
                                   fontWeight: FontWeight.bold
                               ),
@@ -198,22 +186,22 @@ class _SigninScreen extends State<SigninScreen>{
                         padding: EdgeInsets.all(PADDING_ALL_12),
                         child:RaisedButton(
 
-                          elevation: 8.0,
-                          onPressed: ()=>null,
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(22.0)
-                          ),
-                          padding: EdgeInsets.fromLTRB(PADDING_ALL_16*2.0,PADDING_ALL_12, PADDING_ALL_16*2.0,PADDING_ALL_12),
+                            elevation: 8.0,
+                            onPressed: ()=>null,
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(22.0)
+                            ),
+                            padding: EdgeInsets.fromLTRB(PADDING_ALL_16*2.0,PADDING_ALL_12, PADDING_ALL_16*2.0,PADDING_ALL_12),
 
-                          child : Text(
-                                "Sign in",
-                                style: TextStyle(
-                                    color: Color(HOME_APP_BAR_COLOR),
-                                    fontSize: FONT_SIZE_MEDIUM
-                                ),textAlign: TextAlign.center,
+                            child : Text(
+                              "Sign in",
+                              style: TextStyle(
+                                  color: Color(HOME_APP_BAR_COLOR),
+                                  fontSize: FONT_SIZE_MEDIUM
+                              ),textAlign: TextAlign.center,
 
-                              )
+                            )
 
                         ),
                       ),
@@ -242,15 +230,12 @@ class _SigninScreen extends State<SigninScreen>{
                                 )
                               ])
                       ),
-          ]
-              )
-              )
-            ],
+                    ]
+                )
+            )
+          ],
 
-          ),
-          )
-
-
+        ),
       );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'file:///C:/Users/hp/qbeez/lib/ui/auth/sign_in.dart';
 import 'file:///C:/Users/hp/qbeez/lib/ui/auth/sign_up.dart';
@@ -60,7 +61,7 @@ class WelcomeQubeez extends StatelessWidget {
 
                     Padding(padding: EdgeInsets.fromLTRB(LEFT_MARGIN, 50.0, LEFT_MARGIN, 6.0),
                     child: RaisedButton(
-                      elevation: 5.0,
+                      elevation: 6.0,
                       onPressed: ()=> Navigator.push(context,
                           MaterialPageRoute(builder: (context) => SignupScreen(context))),
                       color: Colors.white,
@@ -89,29 +90,28 @@ class WelcomeQubeez extends StatelessWidget {
                       ),
                     ),),
                     Container(
-                        alignment: Alignment.center,
-
-                        child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-
-                              Text(
-                                "Already have an account?",textAlign: TextAlign.center,
-                                style: TextStyle(color: Colors.white, fontSize: FONT_SIZE_MEDIUM-2),
-                              ),
-                              FlatButton(
-                                textColor: Colors.white,
-                                onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => SigninScreen()));
-                                },
-                                child: Text("Sign in",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: FONT_SIZE_MEDIUM-2
-                                  ),),
-
-                              )
-                            ])
+                      margin: EdgeInsets.only(top: 14),
+                      child: Center(
+                        child: RichText(
+                          text: TextSpan(
+                              style: TextStyle(fontSize: 14, color: Colors.white),
+                              text: "Already have an account? ",
+                              children: [
+                                TextSpan(
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (_) => SigninScreen()));
+                                      },
+                                    text: "Sign in",
+                                    style: TextStyle(color: Colors.white,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold))
+                              ]),
+                        ),
+                      ),
                     ),
                   ],
                 ),flex: 1,)

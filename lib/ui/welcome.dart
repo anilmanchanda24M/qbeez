@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:qubeez/ui/sign_in.dart';
-import 'package:qubeez/ui/sign_up.dart';
+import 'file:///C:/Users/hp/qbeez/lib/ui/auth/sign_in.dart';
+import 'file:///C:/Users/hp/qbeez/lib/ui/auth/sign_up.dart';
 import 'package:qubeez/utils/custom_colors.dart';
 import 'package:qubeez/utils/dimen/dimen.dart';
 import 'package:qubeez/utils/ui.dart';

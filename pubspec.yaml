@@ -40,6 +40,10 @@ dependencies:
   carousel_slider: ^2.3.1
   shimmer: ^1.1.1
   rflutter_alert: ^1.0.2
+  dio: ^3.0.9
+  sms_autofill: ^1.2.1
+  sms_otp_auto_verify: ^1.2.2
+  rxdart: ^0.24.1
 
 
 dev_dependencies:

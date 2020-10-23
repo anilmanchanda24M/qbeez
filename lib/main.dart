@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:qubeez/ui/customer_support.dart';
 import 'package:qubeez/ui/ScanScreen.dart';
 import 'package:qubeez/ui/home_screen.dart';
-import 'package:qubeez/ui/sign_up.dart';
+import 'file:///C:/Users/hp/qbeez/lib/ui/auth/sign_up.dart';
 import 'package:qubeez/ui/splash_screen.dart';
 import 'package:qubeez/ui/transaction_screen.dart';
 import 'package:qubeez/ui/welcome.dart';
-import 'package:qubeez/ui/sign_in.dart';
+import 'file:///C:/Users/hp/qbeez/lib/ui/auth/sign_in.dart';
 
 import 'ui/otp.dart';
 

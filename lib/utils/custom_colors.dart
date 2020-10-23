@@ -1,0 +1,1 @@
+const int HOME_APP_BAR_COLOR =0xff992F3B;

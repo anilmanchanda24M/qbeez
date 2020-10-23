@@ -1,0 +1,24 @@
+const LOGO_TOP_MARGIN = 100.0;
+const LEFT_MARGIN = 12.0;
+const TOP_MARGIN = 12.0;
+const RIGHT_MARGIN = 12.0;
+const BOTTOM_MARGIN  = 12.0;
+const NO_MARGIN = 0.0;
+const WELCOME_TOP_MARGIN = 50.0;
+
+const TOP_MARGIN_EXTRA = 25.0;
+const Button_TOP_MARGIN_EXTRA = 50.0;
+const PADDING_ALL_16 = 16.0;
+const PADDING_ALL_12 = 12.0;
+const PADDING_ALL_8 = 8.0;
+const NO_PADDING = 0.0;
+
+const MARGIN = 12.0;
+
+const FONT_SIZE_WELCOME = 26.0;
+const FONT_SIZE_MEDIUM = 18.0;
+const FONT_SIZE_LARGE = 20.0;
+
+const FONT_SIGNIN = 20.0;
+
+const APP_BAR_MARGIN = 80.0;

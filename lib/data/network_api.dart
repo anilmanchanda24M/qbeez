@@ -32,8 +32,8 @@ class ApiProvider{
       dynamic json = jsonDecode(response.toString());
       print(response.data);
       if (response.data != "") {
-        print("dataValue :- ${json['success']}");
-        if (json['success'] == true)
+        print("dataValue :- ${json['status']}");
+        if (json['status'] == true)
           return SignUpResponse.fromJson(json);
         else
           return SignUpResponse.fromError(json['message'], response.statusCode);
@@ -50,32 +50,49 @@ class ApiProvider{
     }
   }
 
-  Future<LoginResponse> login(String userCred, String password,
-      String longitude, String latitude, int roleType) async {
+  Future<LoginResponse> login(String userCred, String password) async {
     final map = {
-      "user_cred": userCred,
+      "userid": userCred,
       "password": password,
-      "longitude": longitude,
-      "latitude": latitude,
     };
-
-    Dio _dioClient = Dio(BaseOptions(
-      baseUrl: Constants.TESTING_URL,
-      connectTimeout: 5000,
-      receiveTimeout: 5000,
-      headers: {
-        'Appversion': '1.0',
-        'Ostype': Platform.isAndroid ? 'android' : 'ios',
-        'Roletype': roleType
-      },
-    ));
     try {
       Response response = await _dioClient.post('login', data: map);
       dynamic json = jsonDecode(response.toString());
       print(response.data);
       if (response.data != "") {
-        print("dataValue :- ${json['success']}");
-        if (json['success'] == true)
+        print("dataValue :- ${json['status']}");
+        if (json['status'] == true)
+          return LoginResponse.fromJson(json);
+        else
+          return LoginResponse.fromError(
+              json['message']/*,
+            response.data['error_code'],*/
+          );
+      } else {
+        return LoginResponse.fromError("No data"/*, 396*/);
+      }
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      var e = error;
+      if (error is DioError) {
+        e = getErrorMsg(e.type);
+      }
+      return LoginResponse.fromError("$e"/*, 397*/);
+    }
+  }
+
+  Future<LoginResponse> veriftyOtp(String userCred, String otp) async {
+    final map = {
+      "userid": userCred,
+      "otp": otp,
+    };
+    try {
+      Response response = await _dioClient.post('VerifyOtp', data: map);
+      dynamic json = jsonDecode(response.toString());
+      print(response.data);
+      if (response.data != "") {
+        print("dataValue :- ${json['status']}");
+        if (json['status'] == true)
           return LoginResponse.fromJson(json);
         else
           return LoginResponse.fromError(

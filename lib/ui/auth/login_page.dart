@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:qubeez/ui/auth/bloc/LoginBloc.dart';
+import 'package:qubeez/ui/auth/forgot_password_page.dart';
 import 'package:qubeez/ui/auth/register_page.dart';
+import 'package:qubeez/utils/AppUtils.dart';
 import 'package:qubeez/utils/custom_colors.dart';
 import 'package:qubeez/utils/dimen/dimen.dart';
 import 'package:qubeez/utils/ui.dart';
@@ -22,10 +25,43 @@ class _LoginPageState extends State<LoginPage> {
   String emailPattern = r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
   String mobilePattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
 
+  LoginBloc _loginBloc = LoginBloc();
+
   @override
   void initState() {
     super.initState();
     passwordVisible = false;
+
+    _loginBloc.loginStream.listen((event) {
+      if (event.user != null) {
+
+      } else {
+        AppUtils.showError(event.message, _globalKey);
+        print(event.message);
+      }
+    });
+
+    _loginBloc.errorStream.listen((event) {
+      AppUtils.showError(event.stackTrace.toString(), _globalKey);
+    });
+
+    _loginBloc.loadingStream.listen((event) {
+      if (context != null) {
+        if (event) {
+          AppUtils.showLoadingDialog(context);
+        } else {
+          Navigator.pop(context);
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _loginBloc?.dispose();
+    _emailPhoneController?.dispose();
+    _passwordController?.dispose();
   }
 
   @override
@@ -105,6 +141,13 @@ class _LoginPageState extends State<LoginPage> {
                               color: Colors.purple,),
                             filled: true,
                             fillColor: Colors.white,
+                            hintStyle: TextStyle(
+                                fontSize: 14
+                            ),
+                            errorStyle: TextStyle(
+                                fontSize: 12,
+                                color: Colors.white
+                            ),
                             contentPadding: EdgeInsets.symmetric(vertical: 5),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.all(
@@ -166,6 +209,13 @@ class _LoginPageState extends State<LoginPage> {
                               color: Colors.purple,),
                             filled: true,
                             fillColor: Colors.white,
+                            hintStyle: TextStyle(
+                                fontSize: 14
+                            ),
+                            errorStyle: TextStyle(
+                                fontSize: 12,
+                                color: Colors.white
+                            ),
                             contentPadding: EdgeInsets.symmetric(vertical: 5),
                             suffixIcon: IconButton(
                                 icon: Icon(passwordVisible ? Icons.visibility : Icons.visibility_off,
@@ -191,7 +241,12 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       Padding(padding: EdgeInsets.fromLTRB(8, 12, 0, 30),
                         child: InkWell(
-                          onTap: (){},
+                          onTap: (){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => ForgotPasswordPage()));
+                          },
                           splashColor: Colors.purpleAccent,
                           child: Text("Forgot Password?", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
                         ),),
@@ -199,7 +254,14 @@ class _LoginPageState extends State<LoginPage> {
                         child: Center(
                           child: RaisedButton(
                               elevation: 8.0,
-                              onPressed: ()=>null,
+                              onPressed: (){
+                                if(_formKey.currentState.validate()){
+                                  String emailFieldValue = _emailPhoneController.text.toString();
+                                  String password = _passwordController.text.toString();
+
+                                  _loginBloc.loginData(emailFieldValue, password);
+                                }
+                              },
                               color: Colors.white,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25.0)

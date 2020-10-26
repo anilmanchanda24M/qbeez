@@ -22,14 +22,12 @@ class LoginBloc extends BaseBloc {
     _errorStream?.close();
   }
 
-  void loginData(String userCred, String password,
-      String longitude, String latitude, int roleType) async {
+  void loginData(String userCred, String password) async {
     print("calling");
     if (isLoading) return;
     isLoading = true;
     _loadingStream.sink.add(true);
-    LoginResponse loginData = await repository.login(userCred, password,
-        longitude, latitude, roleType);
+    LoginResponse loginData = await repository.login(userCred, password);
     isLoading = false;
     _loadingStream.sink.add(isLoading);
     _loginStream.sink.add(loginData);

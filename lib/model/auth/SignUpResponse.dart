@@ -1,16 +1,18 @@
 class SignUpResponse {
-  bool success;
+  bool status, verified;
   String message;
   String otp;
-  UserSignUpData user;
+  UserSignUpData data;
+  InputError inputError;
 
-  SignUpResponse(this.success, this.message, this.otp, this.user);
+  SignUpResponse(this.status, this.message, this.otp, this.data, this.inputError);
 
   SignUpResponse.fromJson(Map<String, dynamic> json) {
-    this.success = json['success'] == null ? null : json['success'];
+    this.status = json['status'] == null ? null : json['status'];
     this.message = json['message'] == null ? null : json['message'];
     this.otp = json['otp'] == null ? null : json['otp'];
-    this.user = json['user'] != null ? new UserSignUpData.fromJson(json['user']) : null;
+    this.data = json['data'] != null ? new UserSignUpData.fromJson(json['data']) : null;
+    this.inputError = json['input_error'] == null ? null : InputError.fromJson(json['input_error']);
   }
 
   SignUpResponse.fromError(String errorValue, int statusCode) {
@@ -18,32 +20,38 @@ class SignUpResponse {
   }
 }
 
-class UserSignUpData{
-  int user_id;
-  int user_log_id;
-  String email;
-  String otp;
-  String phone_number;
-  String status = null;
+class InputError{
+  List<String> mobile;
+  List<String> email;
 
-  UserSignUpData(this.user_id, this.user_log_id, this.email, this.otp, this.phone_number, this.status);
+  InputError(this.mobile, this.email);
+
+  InputError.fromJson(Map<String, dynamic> json){
+    this.mobile =  (json['mobile'] as List).map((i) => i).toList();
+    this.email =  (json['email'] as List).map((i) => i).toList();
+  }
+}
+
+class ErrorData{
+  String error;
+
+  ErrorData(this.error);
+}
+
+class UserSignUpData{
+  int id, user_type;
+  String name, email, verification_code, country_code, mobile;
+
+  UserSignUpData(this.id, this.user_type, this.name, this.email, this.verification_code,
+      this.country_code, this.mobile);
 
   UserSignUpData.fromJson(Map<String, dynamic> json){
-    user_id = json['user_id'] == null ? null : json['user_id'];
-    user_log_id = json['user_log_id'] == null ? null : json['user_log_id'];
+    id = json['id'] == 0 ? 0 : json['id'];
+    user_type = json['user_type'] == 0 ? 0 : json['user_type'];
+    name = json['name'] == null ? null : json['name'];
     email = json['email'] == null ? null : json['email'];
-    otp = json['otp'] == null ? null : json['otp'];
-    phone_number = json['phone_number'] == null ? null : json['phone_number'];
-    status = json['status'] == null ? null : json['status'];
-  }
-
-  Map<String, dynamic> toJson(){
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['user_id'] = user_id;
-    data['user_log_id'] = user_log_id;
-    data['email'] = email;
-    data['otp'] = otp;
-    data['phone_number'] = phone_number;
-    data['status'] = status;
+    verification_code = json['verification_code'] == null ? null : json['verification_code'];
+    country_code = json['country_code'] == null ? null : json['country_code'];
+    mobile = json['mobile'] == null ? null : json['mobile'];
   }
 }

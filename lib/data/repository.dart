@@ -11,7 +11,6 @@ class Repository{
       apiProvider.signUp(fullName, email,
           phone, password);
 
-  Future<LoginResponse> login(String userCred, String password,
-      String longitude, String latitude, int roleType) =>
-      apiProvider.login(userCred, password, longitude, latitude, roleType);
+  Future<LoginResponse> login(String userCred, String password) =>
+      apiProvider.login(userCred, password);
 }

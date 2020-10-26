@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'file:///C:/Users/hp/qbeez/lib/ui/auth/otp_page.dart';
 import 'package:qubeez/utils/AppUtils.dart';
 import 'package:qubeez/utils/custom_colors.dart';
 import 'package:qubeez/utils/dimen/dimen.dart';
@@ -29,11 +30,14 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   void initState() {
     super.initState();
-    passwordVisible = false;
+    passwordVisible = true;
 
     _signUpBloc.signUpStream.listen((event) {
-      if (event.user != null) {
-
+      if (event.status == true) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => OtpPage()));
       } else {
         AppUtils.showError(event.message, _globalKey);
         print(event.message);
@@ -151,6 +155,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       TextFormField(
                         controller: _nameController,
+                        cursorColor: Colors.black,
+                        keyboardType: TextInputType.text,
+                        textCapitalization: TextCapitalization.words,
                         decoration: InputDecoration(
                             hintText: "Enter your full name",
                             prefixIcon: Icon(
@@ -199,6 +206,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       TextFormField(
                         controller: _phoneController,
+                        cursorColor: Colors.black,
+                        keyboardType: TextInputType.phone,
                         maxLength: 10,
                         decoration: InputDecoration(
                             hintStyle: TextStyle(
@@ -254,6 +263,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       TextFormField(
                         controller: _emailController,
+                        cursorColor: Colors.black,
+                        keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                             hintStyle: TextStyle(
                                 fontSize: 14
@@ -360,14 +371,18 @@ class _RegisterPageState extends State<RegisterPage> {
                           child: RaisedButton(
                               elevation: 8.0,
                               onPressed: (){
-                                if (_formStateKey.currentState.validate()) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => OtpPage()));
+                                /*if (_formStateKey.currentState.validate()) {
                                   String fullName = _nameController.text.toString();
                                   String email = _emailController.text.toString();
                                   String phone = _phoneController.text.toString();
                                   String password = _passwordController.text.toString();
 
                                   _signUpBloc.signUpData(fullName, email, phone, password);
-                                }
+                                }*/
                               },
                               color: Colors.white,
                               shape: RoundedRectangleBorder(

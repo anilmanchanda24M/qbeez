@@ -25,3 +25,4 @@ const String home2 = "assets/images/home3.png";
 const String splashBG = "assets/images/splash_bg.png";
 const String splashQbeezLogo = "assets/images/qbeez_logos.png";
 const String splashQbeezLogoText = "assets/images/qbeez_logo_text.png";
+const String NO_INTERNET = 'assets/images/no_internet.svg';

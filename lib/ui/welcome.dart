@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/hp/qbeez/lib/ui/auth/sign_in.dart';
-import 'file:///C:/Users/hp/qbeez/lib/ui/auth/sign_up.dart';
+import 'package:qubeez/ui/auth/login_page.dart';
+import 'package:qubeez/ui/auth/register_page.dart';
 import 'package:qubeez/utils/custom_colors.dart';
 import 'package:qubeez/utils/dimen/dimen.dart';
 import 'package:qubeez/utils/ui.dart';
@@ -12,6 +12,7 @@ class WelcomeQubeez extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body:Container(
+        width: double.infinity,
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage(WELCOME_BACKGROUND_PATH), fit: BoxFit.cover)),
@@ -63,7 +64,7 @@ class WelcomeQubeez extends StatelessWidget {
                     child: RaisedButton(
                       elevation: 6.0,
                       onPressed: ()=> Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => SignupScreen(context))),
+                          MaterialPageRoute(builder: (context) => RegisterPage())),
                       color: Colors.white,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(22.0)
@@ -103,7 +104,7 @@ class WelcomeQubeez extends StatelessWidget {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (_) => SigninScreen()));
+                                                builder: (_) => LoginPage()));
                                       },
                                     text: "Sign in",
                                     style: TextStyle(color: Colors.white,

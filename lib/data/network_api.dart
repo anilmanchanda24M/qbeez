@@ -21,7 +21,8 @@ class ApiProvider{
       "email": email,
       "mobile": phone,
       "password": password,
-      "user_type": Constants.USER_TYPE
+      "user_type": Constants.USER_TYPE,
+      "country_code": "+91"
     };
 
     FormData data = FormData.fromMap(map);
@@ -35,9 +36,7 @@ class ApiProvider{
         if (json['success'] == true)
           return SignUpResponse.fromJson(json);
         else
-          return SignUpResponse.fromError(
-              json['message'], response.statusCode
-          );
+          return SignUpResponse.fromError(json['message'], response.statusCode);
       } else {
         return SignUpResponse.fromError("No data", 396);
       }

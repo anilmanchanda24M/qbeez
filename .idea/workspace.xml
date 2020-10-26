@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b937506f-eb9f-4f0f-a078-030627045c83" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/ui/auth/login_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ui/auth/register_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/AppUtils.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/31fc25ecfda7b8147427171fa1299e7c/.filecache" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/31fc25ecfda7b8147427171fa1299e7c/.filecache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/31fc25ecfda7b8147427171fa1299e7c/app.dill" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/31fc25ecfda7b8147427171fa1299e7c/app.dill" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/31fc25ecfda7b8147427171fa1299e7c/debug_android_application.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/31fc25ecfda7b8147427171fa1299e7c/debug_android_application.stamp" afterDir="false" />
@@ -23,10 +24,11 @@
       <change beforePath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk.sha1" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk.sha1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/auth/sign_in.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/auth/sign_in.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/splash_screen.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/network_api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/network_api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/auth/login_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/auth/login_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/auth/sign_in.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/auth/sign_up.dart" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/welcome.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/welcome.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/utils/dimen/dimen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/dimen/dimen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,18 +57,20 @@
     <property name="android.sdk.path" value="$PROJECT_DIR$/../AppData/Local/Android/Sdk" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/images" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/utils" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\hp\qbeez\lib\ui\auth" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\hp\qbeez\lib\utils" />
+      <recent name="C:\Users\hp\qbeez\lib\ui\auth" />
       <recent name="C:\Users\hp\qbeez\assets\images" />
       <recent name="C:\Users\hp\qbeez\lib\ui\auth\bloc" />
       <recent name="C:\Users\hp\qbeez\lib\model\auth" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\hp\qbeez\lib\ui\auth" />
     </key>
   </component>
   <component name="RunManager">
@@ -89,26 +93,30 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="413" y="110" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1603707816146">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="413" y="110" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1603707816146" />
     <state x="489" y="153" key="FileChooserDialogImpl" timestamp="1603451471272">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="489" y="153" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1603451471272" />
-    <state width="1306" height="282" key="GridCell.Tab.0.bottom" timestamp="1603467192905">
+    <state width="1306" height="282" key="GridCell.Tab.0.bottom" timestamp="1603708424202">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1306" height="282" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1603467192905" />
-    <state width="1306" height="282" key="GridCell.Tab.0.center" timestamp="1603467192905">
+    <state width="1306" height="282" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1603708424202" />
+    <state width="1306" height="282" key="GridCell.Tab.0.center" timestamp="1603708424201">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1306" height="282" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1603467192905" />
-    <state width="1306" height="282" key="GridCell.Tab.0.left" timestamp="1603467192905">
+    <state width="1306" height="282" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1603708424201" />
+    <state width="1306" height="282" key="GridCell.Tab.0.left" timestamp="1603708424201">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1306" height="282" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1603467192905" />
-    <state width="1306" height="282" key="GridCell.Tab.0.right" timestamp="1603467192905">
+    <state width="1306" height="282" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1603708424201" />
+    <state width="1306" height="282" key="GridCell.Tab.0.right" timestamp="1603708424201">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1306" height="282" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1603467192905" />
+    <state width="1306" height="282" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1603708424201" />
     <state x="184" y="8" key="SettingsEditor" timestamp="1603451472884">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

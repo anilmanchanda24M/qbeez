@@ -37,7 +37,7 @@ class _RegisterPageState extends State<RegisterPage> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (_) => OtpPage(event.data.mobile, event.otp)));
+                builder: (_) => OtpPage(event.data.mobile, event.data.verification_code)));
       } else {
         AppUtils.showError(event.message, _globalKey);
         print(event.message);

@@ -122,33 +122,31 @@ class _OtpPage extends State<OtpPage>{
                           child: Stack(
                             alignment: Alignment.centerRight,
                             children: [
-                              Padding(padding: EdgeInsets.only(left: 8),
-                                child: TextFormField(
-                                  controller: _otpFieldController,
-                                  textAlignVertical: TextAlignVertical.center,
-                                  maxLength: 6,
-                                  maxLines: 1,
-                                  decoration: InputDecoration(
-                                      fillColor: Colors.white,
-                                      filled: true,
-                                      counterText: "",
-                                      hintText: 'Enter your code here',
-                                      contentPadding: EdgeInsets.symmetric(vertical: 5),
-                                      border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(25.0),
-                                          )
-                                      )
-                                  ),
-                                  validator: (v){
-                                    if(v.isEmpty){
-                                      return 'Please enter code here';
-                                    }else if(v.length <6){
-                                      return 'Please enter 6 digit code';
-                                    }
-                                    return null;
-                                  },
-                                ),),
+                              TextFormField(
+                                controller: _otpFieldController,
+                                textAlign: TextAlign.center,
+                                maxLength: 6,
+                                decoration: InputDecoration(
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                    counterText: "",
+                                    hintText: 'Enter your code here',
+                                    contentPadding: EdgeInsets.symmetric(vertical: 5),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(25.0),
+                                        )
+                                    )
+                                ),
+                                validator: (v){
+                                  if(v.isEmpty){
+                                    return 'Please enter code here';
+                                  }else if(v.length <6){
+                                    return 'Please enter 6 digit code';
+                                  }
+                                  return null;
+                                },
+                              ),
 
                               Align(
                                 child: Padding(padding: EdgeInsets.only(right: 8),

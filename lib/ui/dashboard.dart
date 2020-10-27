@@ -55,13 +55,74 @@ class _DashboardState extends State<Dashboard> {
     _navigationQueue.addLast(_selectedIndex);
   }
 
+  /*PreferredSize(child: AppBar(
+              backgroundColor: Colors.white,
+              centerTitle: true,
+              title: Text("Hi Samuel!",
+                style: TextStyle(fontSize: 20, color: kPrimaryColor, fontWeight: FontWeight.w700),),
+              elevation: defaultTargetPlatform == TargetPlatform.android ? 0.0 : 0.0,
+              leading: IconButton(
+                icon: SvgPicture.asset(dashboardMenu, height: 24, width: 24, color: kPrimaryColor,),
+                onPressed: () {
+                  _globalKey.currentState.openDrawer();
+                },
+              ),
+              actions: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(12),
+                  child: ClipOval(
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      color: Colors.grey.shade300,
+                      child: Padding(
+                        padding: EdgeInsets.all(15),
+                        child: Icon(Icons.person, size: 32, color: kPrimaryColor,),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ), preferredSize: Size.fromHeight(80.0))*/
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
         child: Scaffold(
             backgroundColor: Colors.white,
             key: _globalKey,
-            appBar: AppBar(
+            appBar: _selectedIndex == 0
+                ? PreferredSize(child: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(0, 8, 8, 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      icon: SvgPicture.asset(dashboardMenu, height: 24, width: 24, color: kPrimaryColor,),
+                      onPressed: () {
+                        _globalKey.currentState.openDrawer();
+                      },
+                    ),
+                    Text("Hi Samuel!",
+                      style: TextStyle(fontSize: 24, color: kPrimaryColor, fontWeight: FontWeight.w700),),
+
+                    ClipOval(
+                        child: Container(
+                          height: 64,
+                          width: 64,
+                          color: Colors.grey.shade300,
+                          child: Padding(
+                            padding: EdgeInsets.all(5),
+                            child: Icon(Icons.person, size: 32, color: kPrimaryColor,),
+                          ),
+                        )
+                    )
+                  ],
+                ),
+              ),
+            ), preferredSize: Size.fromHeight(80.0))
+                : AppBar(
                 title: Text(
                   _pages[_selectedIndex]['title'],
                   style: TextStyle(fontSize: 18),
@@ -158,7 +219,7 @@ class _DashboardState extends State<Dashboard> {
                 width: 70,
                 child: FloatingActionButton(
                   backgroundColor: Colors.transparent,
-                  elevation: 0,
+                  elevation: 4,
                   onPressed: () {
                     setState(() {
                       _selectedIndex = 2;
@@ -181,14 +242,15 @@ class _DashboardState extends State<Dashboard> {
             bottomNavigationBar: FABBottomAppBar(
               onTabSelected: _selectPage,
               centerItemText: 'Scan',
+              // backgroundColor: Colors.transparent,
               selectedColor: kPrimaryColor,
               color: Colors.grey.shade400,
               notchedShape: CircularNotchedRectangle(),
               items: [
                 FABBottomAppBarItem(iconData: Icons.home, text: 'Home'),
-                FABBottomAppBarItem(iconData: Icons.account_balance_wallet, text: 'Wallet'),
-                FABBottomAppBarItem(iconData: Icons.email_rounded, text: 'Inbox'),
-                FABBottomAppBarItem(iconData: Icons.person, text: 'Profile'),
+                FABBottomAppBarItem(iconData: Icons.account_balance_wallet, text: 'Safe & Secure Payment'),
+                FABBottomAppBarItem(iconData: Icons.info_outline, text: 'About Us'),
+                FABBottomAppBarItem(iconData: Icons.notifications_none_outlined, text: 'Notification'),
               ],
             ),
             /* bottomNavigationBar: FancyBottomNavigation(

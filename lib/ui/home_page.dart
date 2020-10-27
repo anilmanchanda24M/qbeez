@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:qubeez/utils/appcolors.dart';
 import 'package:qubeez/utils/ui.dart';
 
@@ -8,157 +9,276 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  final GlobalKey<ScaffoldState> _globalKey = new GlobalKey();
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: Column(
-        children: [
-          Expanded(
-            flex: 1,
-              child: Container(
-            color: kPrimaryColor,
-                child: Column(
-                  children: [
-                    Padding(padding: EdgeInsets.fromLTRB(16, 16, 16, 12),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0)),
-                      elevation: 4.0,
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 50,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(width: 1,),
-                              Text(
-                                "Balance in the wallet",
-                                style: TextStyle(fontSize: 12, color: kPrimaryColor),
-                              ),
-                              Text(
-                                "3891",
-                                style: TextStyle(fontSize: 24,
-                                    fontWeight:FontWeight.bold,
-                                    color: kPrimaryColor),
-                              ),
-                              SizedBox(width: 1,),
-                            ],
+    return Scaffold(
+      backgroundColor: Colors.white,
+      key: _globalKey,
+      body: SingleChildScrollView(
+        child: Container(
+          width: double.infinity,
+          margin: EdgeInsets.all(12),
+          child:   Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 20,),
+              Card(
+                color: Color(0xFFFFD8D8),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0)),
+                elevation: 4.0,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.all(16),
+                  height: MediaQuery.of(context).size.width * 0.2,
+                  child: Row(
+                    children: [
+                      Expanded(child: Text('Available Balance',
+                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400,
+                              fontSize: 16))),
+                      Expanded(child: Container(
+                        child: Center(
+                          child: RichText(
+                            text: TextSpan(children: [
+                              TextSpan(
+                                  text: '10000',
+                                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700,
+                                      fontSize: 20)),
+                              WidgetSpan(
+                                child: Transform.translate(
+                                  offset: const Offset(0, 6),
+                                  child: Text(
+                                    'QR',
+                                    //superscript is usually smaller in size
+                                    textScaleFactor: 0.7,
+                                    style: TextStyle(color: Colors.black87,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16),
+                                  ),
+                                ),
+                              )
+                            ]),
                           ),
-                        )
-                    ),),
-                    SizedBox(height: 4,),
-                    Row(
-                      children: [
-                        Expanded(child: Column(
-                          children: [
-                            Icon(Icons.account_balance_wallet, size: 40, color: Colors.white,),
-                            SizedBox(height: 4,),
-                            Text("Pay",
-                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.white),)
-                          ],
-                        )),
-                        Expanded(child: Column(
-                          children: [
-                            Icon(Icons.account_balance_wallet, size: 40, color: Colors.white,),
-                            SizedBox(height: 4,),
-                            Text("Add Money",
-                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.white),)
-                          ],
-                        )),
-                        Expanded(child: Column(
-                          children: [
-                            Icon(Icons.account_balance_wallet, size: 40, color: Colors.white,),
-                            SizedBox(height: 4,),
-                            Text("Wallet",
-                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.white),)
-                          ],
-                        ))
+                        ),
+                      ))
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 20,),
+              Card(
+                color: Color(0xFFFFD8D8),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0)),
+                elevation: 4.0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16.0),
+                    gradient: LinearGradient(
+                      colors: <Color>[
+                        Color(0xFFB22B39),
+                        Color(0xFF59161D),
                       ],
                     )
-                  ],
-                ),
-          )),
-          Expanded(
-            flex: 2,
-              child: Container(
-            color: Colors.white,
-                child: Column(
-                  children: [
-                    Padding(padding: EdgeInsets.fromLTRB(16, 16, 16, 12),
-                      child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0)),
-                          elevation: 4.0,
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  // padding: EdgeInsets.all(16),
+                  height: MediaQuery.of(context).size.width * 0.3,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex:1,
                           child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 120,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                SizedBox(width: 12,),
-                                Image.asset(home2, width: 80, height: 80,),
-                                Expanded(child: Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "User QR Code",
-                                        style: TextStyle(fontSize: 18,
-                                            fontWeight:FontWeight.w700,
-                                            color: kPrimaryColor),
-                                      ),
-                                      Text(
-                                        "Safe and Easy Steps",
-                                        style: TextStyle(fontSize: 16,
-                                            fontWeight:FontWeight.bold,
-                                            color: Colors.grey),
-                                      ),
-                                    ],
-                                  ),
-                                ))
-                              ],
-                            ),
-                          )
-                      ),),
-                    Padding(padding: EdgeInsets.fromLTRB(16, 16, 16, 12),
-                      child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16.0)),
-                          elevation: 4.0,
+                        child: Center(
+                          child: SvgPicture.asset(SEND_RECEIVE_MONEY, fit: BoxFit.fill, color: Colors.white,),
+                        ),
+                      )),
+                      SizedBox(
+                        width: 1.6,
+                        height: double.infinity,
+                        child: Container(
+                          color: Colors.white,
+                        ),
+                      ),
+                      Expanded(
+                          flex:2,
                           child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 120,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                SizedBox(width: 12,),
-                                Image.asset(home1, width: 80, height: 80,),
-                                Expanded(child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "User Security",
-                                      style: TextStyle(fontSize: 18,
-                                          fontWeight:FontWeight.w700,
-                                          color: kPrimaryColor),
-                                    ),
-                                    Text(
-                                      "Safe and Comfortable",
-                                      style: TextStyle(fontSize: 16,
-                                          fontWeight:FontWeight.bold,
-                                          color: Colors.grey),
-                                    ),
-                                  ],
-                                ))
-                              ],
+                            child: Center(
+                              child: Text("Send & Receive",
+                                textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 34,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white
+                              ),),
                             ),
-                          )
-                      ),),
-                  ],
+                          ))
+                    ],
+                  ),
                 ),
-          ))
-        ],
+              ),
+              SizedBox(height: 20,),
+              Card(
+                color: Color(0xFFFFD8D8),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0)),
+                elevation: 4.0,
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16.0),
+                      gradient: LinearGradient(
+                        colors: <Color>[
+                          Color(0xFFB22B39),
+                          Color(0xFF59161D),
+                        ],
+                      )
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  // padding: EdgeInsets.all(16),
+                  height: MediaQuery.of(context).size.width * 0.3,
+                  child: Row(
+                    children: [
+                      Expanded(
+                          flex:1,
+                          child: Container(
+                            child: Center(
+                              child: SvgPicture.asset(SEND_RECEIVE_MONEY, fit: BoxFit.fill, color: Colors.white,),
+                            ),
+                          )),
+                      SizedBox(
+                        width: 1.6,
+                        height: double.infinity,
+                        child: Container(
+                          color: Colors.white,
+                        ),
+                      ),
+                      Expanded(
+                          flex:2,
+                          child: Container(
+                            child: Center(
+                              child: Text("Top Up",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 34,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white
+                                ),),
+                            ),
+                          ))
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 20,),
+              Card(
+                color: Color(0xFFFFD8D8),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0)),
+                elevation: 4.0,
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16.0),
+                      gradient: LinearGradient(
+                        colors: <Color>[
+                          Color(0xFFB22B39),
+                          Color(0xFF59161D),
+                        ],
+                      )
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  // padding: EdgeInsets.all(16),
+                  height: MediaQuery.of(context).size.width * 0.3,
+                  child: Row(
+                    children: [
+                      Expanded(
+                          flex:1,
+                          child: Container(
+                            child: Center(
+                              child: SvgPicture.asset(BOOKING_EVENTS, fit: BoxFit.fill, color: Colors.white,),
+                            ),
+                          )),
+                      SizedBox(
+                        width: 1.6,
+                        height: double.infinity,
+                        child: Container(
+                          color: Colors.white,
+                        ),
+                      ),
+                      Expanded(
+                          flex:2,
+                          child: Container(
+                            child: Center(
+                              child: Text("Booking & Events",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 34,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white
+                                ),),
+                            ),
+                          ))
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 20,),
+              Card(
+                color: Color(0xFFFFD8D8),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0)),
+                elevation: 4.0,
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16.0),
+                      gradient: LinearGradient(
+                        colors: <Color>[
+                          Color(0xFFB22B39),
+                          Color(0xFF59161D),
+                        ],
+                      )
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  // padding: EdgeInsets.all(16),
+                  height: MediaQuery.of(context).size.width * 0.3,
+                  child: Row(
+                    children: [
+                      Expanded(
+                          flex:1,
+                          child: Container(
+                            child: Center(
+                              child: SvgPicture.asset(TRANSACTION_HISTORY, fit: BoxFit.fill, color: Colors.white,),
+                            ),
+                          )),
+                      SizedBox(
+                        width: 1.6,
+                        height: double.infinity,
+                        child: Container(
+                          color: Colors.white,
+                        ),
+                      ),
+                      Expanded(
+                          flex:2,
+                          child: Container(
+                            child: Center(
+                              child: Text("Transaction History",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 32,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white
+                                ),),
+                            ),
+                          ))
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

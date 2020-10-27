@@ -1,4 +1,4 @@
-#Tue Oct 27 13:24:29 IST 2020
+#Tue Oct 27 21:05:58 IST 2020
 base.0=C\:\\Users\\hp\\qbeez\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

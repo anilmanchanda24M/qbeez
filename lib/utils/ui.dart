@@ -18,7 +18,7 @@ const BAR_CODE = "${BASE_DIR}bar_code.png";
 
 
 const String dashboardMenu = 'assets/images/dashboard_menu.svg';
-const String profile1Image = "assets/images/account.svg";
+const String profile1Image = "assets/images/profile_placeholder.png";
 
 const String home1 = 'assets/images/home1.png';
 const String home2 = "assets/images/home3.png";
@@ -26,3 +26,9 @@ const String splashBG = "assets/images/splash_bg.png";
 const String splashQbeezLogo = "assets/images/qbeez_logos.png";
 const String splashQbeezLogoText = "assets/images/qbeez_logo_text.png";
 const String NO_INTERNET = 'assets/images/no_internet.svg';
+
+//home tab icons
+const String SEND_RECEIVE_MONEY = 'assets/images/send_receive_money.svg';
+const String TOP_UP = 'assets/images/send_receive_money.svg';
+const String TRANSACTION_HISTORY = 'assets/images/transaction_history.svg';
+const String BOOKING_EVENTS = 'assets/images/calender.svg';

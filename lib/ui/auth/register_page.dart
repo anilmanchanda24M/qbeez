@@ -37,7 +37,7 @@ class _RegisterPageState extends State<RegisterPage> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (_) => OtpPage()));
+                builder: (_) => OtpPage(event.data.mobile, event.otp)));
       } else {
         AppUtils.showError(event.message, _globalKey);
         print(event.message);
@@ -374,7 +374,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (_) => OtpPage()));
+                                        builder: (_) => OtpPage("8920547478", "588892")));
                                 /*if (_formStateKey.currentState.validate()) {
                                   String fullName = _nameController.text.toString();
                                   String email = _emailController.text.toString();

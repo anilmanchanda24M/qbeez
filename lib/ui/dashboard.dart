@@ -159,7 +159,11 @@ class _DashboardState extends State<Dashboard> {
                 child: FloatingActionButton(
                   backgroundColor: Colors.transparent,
                   elevation: 0,
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      _selectedIndex = 2;
+                    });
+                  },
                   child: Container(
                     height: 75,
                     width: 75,
@@ -177,6 +181,8 @@ class _DashboardState extends State<Dashboard> {
             bottomNavigationBar: FABBottomAppBar(
               onTabSelected: _selectPage,
               centerItemText: 'Scan',
+              selectedColor: kPrimaryColor,
+              color: Colors.grey.shade400,
               notchedShape: CircularNotchedRectangle(),
               items: [
                 FABBottomAppBarItem(iconData: Icons.home, text: 'Home'),
@@ -217,7 +223,13 @@ class _DashboardState extends State<Dashboard> {
   void _selectPage(int index) {
     _navigationQueue.addLast(index);
     setState(() {
-      _selectedIndex = index;
+      if(index == 2){
+        _selectedIndex = index+1;
+      }else if(index == 3){
+        _selectedIndex = index+1;
+      }else{
+        _selectedIndex = index;
+      }
     });
   }
 

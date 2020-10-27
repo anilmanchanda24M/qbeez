@@ -44,9 +44,6 @@ dependencies:
   sms_autofill: ^1.2.1
   sms_otp_auto_verify: ^1.2.2
   rxdart: ^0.24.1
-  barcode_scan: ^0.0.4
-  qr_flutter: ^1.1.1
-
 
 dev_dependencies:
   flutter_test:

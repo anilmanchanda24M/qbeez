@@ -145,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                           flex:1,
                           child: Container(
                             child: Center(
-                              child: SvgPicture.asset(SEND_RECEIVE_MONEY, fit: BoxFit.fill, color: Colors.white,),
+                              child: SvgPicture.asset(TOP_UP, fit: BoxFit.fill, color: Colors.white,),
                             ),
                           )),
                       SizedBox(

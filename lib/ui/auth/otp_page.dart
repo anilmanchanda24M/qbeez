@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:qubeez/ui/auth/bloc/VerifyOtpBloc.dart';
 import 'package:qubeez/ui/dashboard.dart';
+import 'package:qubeez/utils/AppUtils.dart';
 import 'package:qubeez/utils/appcolors.dart';
 import 'package:qubeez/utils/dimen/dimen.dart';
 import 'package:qubeez/utils/ui.dart';
@@ -18,11 +20,45 @@ class _OtpPage extends State<OtpPage>{
   final GlobalKey<FormState> _formStateKey = GlobalKey();
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey();
 
+  VerifyOtpBloc _verifyOtpBloc = VerifyOtpBloc();
+  /* Navigator.push(context,MaterialPageRoute(
+                                                builder: (context) => Dashboard()));*/
+
   @override
   void initState() {
     super.initState();
-
     _otpFieldController.text = widget.otp;
+
+    _verifyOtpBloc.verifyOtpStream.listen((event) {
+      if (event.status == true) {
+        /*Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => OtpPage(event.data.mobile, event.data.verification_code)));*/
+      } else {
+        AppUtils.showError(event.message, _globalKey);
+        print(event.message);
+      }
+    });
+
+    _verifyOtpBloc.errorStream.listen((event) {
+      AppUtils.showError(event.stackTrace.toString(), _globalKey);
+    });
+
+    _verifyOtpBloc.loadingStream.listen((event) {
+      if (context != null) {
+        if (event) {
+          AppUtils.showLoadingDialog(context);
+        } else {
+          Navigator.pop(context);
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -159,8 +195,7 @@ class _OtpPage extends State<OtpPage>{
                                             child: Icon(Icons.arrow_right_alt, color: Colors.white,)),
                                         onTap: (){
                                           if(_formStateKey.currentState.validate()){
-                                            Navigator.push(context,MaterialPageRoute(
-                                                builder: (context) => Dashboard()));
+                                            _verifyOtpBloc.verifyOtp(widget.phone, widget.otp);
                                           }
                                         },
                                       ),

@@ -110,10 +110,52 @@
       "languageVersion": "2.2"
     },
     {
+      "name": "firebase",
+      "rootUri": "file:///C:/Users/hp/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase-7.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
+      "name": "firebase_core",
+      "rootUri": "file:///C:/Users/hp/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core-0.5.0+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "firebase_core_platform_interface",
+      "rootUri": "file:///C:/Users/hp/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core_platform_interface-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "firebase_core_web",
+      "rootUri": "file:///C:/Users/hp/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core_web-0.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "firebase_messaging",
+      "rootUri": "file:///C:/Users/hp/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_messaging-7.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///C:/flutter/packages/flutter",
       "packageUri": "lib/",
       "languageVersion": "2.10"
+    },
+    {
+      "name": "flutter_local_notifications",
+      "rootUri": "file:///C:/Users/hp/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_local_notifications-1.5.0+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "flutter_local_notifications_platform_interface",
+      "rootUri": "file:///C:/Users/hp/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_local_notifications_platform_interface-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
     },
     {
       "name": "flutter_plugin_android_lifecycle",
@@ -180,6 +222,12 @@
       "rootUri": "file:///C:/Users/hp/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/intl-0.16.1",
       "packageUri": "lib/",
       "languageVersion": "2.5"
+    },
+    {
+      "name": "js",
+      "rootUri": "file:///C:/Users/hp/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/js-0.6.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
     },
     {
       "name": "matcher",
@@ -276,6 +324,12 @@
       "rootUri": "file:///C:/Users/hp/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/provider-4.3.2+2",
       "packageUri": "lib/",
       "languageVersion": "2.7"
+    },
+    {
+      "name": "quiver",
+      "rootUri": "file:///C:/Users/hp/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/quiver-2.1.4+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
     },
     {
       "name": "rflutter_alert",
@@ -458,7 +512,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2020-10-27T06:27:15.269969Z",
+  "generated": "2020-10-28T07:22:37.079052Z",
   "generator": "pub",
   "generatorVersion": "2.10.1"
 }

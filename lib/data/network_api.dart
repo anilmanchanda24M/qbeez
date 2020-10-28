@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:qubeez/model/auth/LoginResponse.dart';
 import 'package:qubeez/model/auth/SignUpResponse.dart';
+import 'package:qubeez/model/auth/verify_otp_response.dart';
 import 'package:qubeez/utils/constant.dart';
 
 class ApiProvider{
@@ -14,7 +15,8 @@ class ApiProvider{
         'Ostype': Platform.isAndroid ? 'ANDRIOD' : 'ios'
       }));
 
-  Future<SignUpResponse> signUp(String name, String email, String phone, String password) async {
+  Future<SignUpResponse> signUp(String name, String email,
+      String phone, String password, String deviceToken) async {
 
     final map = {
       "name": name,
@@ -22,7 +24,8 @@ class ApiProvider{
       "mobile": phone,
       "password": password,
       "user_type": Constants.USER_TYPE,
-      "country_code": "+91"
+      "country_code": "+91",
+      "device_token": deviceToken
     };
 
     FormData data = FormData.fromMap(map);
@@ -81,7 +84,7 @@ class ApiProvider{
     }
   }
 
-  Future<LoginResponse> veriftyOtp(String userCred, String otp) async {
+  Future<VerifyOtpResponse> verifyOtp(String userCred, String otp) async {
     final map = {
       "userid": userCred,
       "otp": otp,
@@ -93,14 +96,14 @@ class ApiProvider{
       if (response.data != "") {
         print("dataValue :- ${json['status']}");
         if (json['status'] == true)
-          return LoginResponse.fromJson(json);
+          return VerifyOtpResponse.fromJson(json);
         else
-          return LoginResponse.fromError(
-              json['message']/*,
-            response.data['error_code'],*/
+          return VerifyOtpResponse.fromError(
+              json['message'],
+            response.data['error_code'],
           );
       } else {
-        return LoginResponse.fromError("No data"/*, 396*/);
+        return VerifyOtpResponse.fromError("No data", 396);
       }
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
@@ -108,7 +111,7 @@ class ApiProvider{
       if (error is DioError) {
         e = getErrorMsg(e.type);
       }
-      return LoginResponse.fromError("$e"/*, 397*/);
+      return VerifyOtpResponse.fromError("$e", 397);
     }
   }
 

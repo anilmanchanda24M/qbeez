@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "492996293452",
+    "firebase_url": "https://qbeez-9bd16.firebaseio.com",
+    "project_id": "qbeez-9bd16",
+    "storage_bucket": "qbeez-9bd16.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:492996293452:android:5af3bf18359f2d2e2015e9",
+        "android_client_info": {
+          "package_name": "com.qubeez.qubeez"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "492996293452-ntiaobjn9bvgkj5dd18p3umua3gaj4j3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.qubeez.qubeez",
+            "certificate_hash": "9fd3524c3ad246c25514bcd75be6423344c007cf"
+          }
+        },
+        {
+          "client_id": "492996293452-gs8jvfnkr5fp6gtiuvngtmd98brsmbvi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdi1U5hZMZ47bONe1LXyBMTK7gjUd3fLM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "492996293452-gs8jvfnkr5fp6gtiuvngtmd98brsmbvi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

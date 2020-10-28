@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:qubeez/preference/qbeez_prefs.dart';
 import 'file:///C:/Users/hp/qbeez/lib/ui/auth/otp_page.dart';
 import 'package:qubeez/utils/AppUtils.dart';
 import 'package:qubeez/utils/custom_colors.dart';
@@ -17,6 +18,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
 
+  String fbToken;
   bool passwordVisible;
   final GlobalKey<FormState> _formStateKey = GlobalKey();
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey();
@@ -31,6 +33,7 @@ class _RegisterPageState extends State<RegisterPage> {
   void initState() {
     super.initState();
     passwordVisible = true;
+    getLocationData();
 
     _signUpBloc.signUpStream.listen((event) {
       if (event.status == true) {
@@ -57,6 +60,11 @@ class _RegisterPageState extends State<RegisterPage> {
         }
       }
     });
+  }
+
+  getLocationData() async {
+    fbToken = await QbeezPrefs.getFBToken();
+    print("Firebase Token :- :: FCMToken -> $fbToken");
   }
 
   @override
@@ -371,18 +379,19 @@ class _RegisterPageState extends State<RegisterPage> {
                           child: RaisedButton(
                               elevation: 8.0,
                               onPressed: (){
-                                Navigator.push(
+                                /*Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (_) => OtpPage("8920547478", "588892")));
-                                /*if (_formStateKey.currentState.validate()) {
+                                        builder: (_) => OtpPage("8920547478", "588892")));*/
+                                if (_formStateKey.currentState.validate()) {
                                   String fullName = _nameController.text.toString();
                                   String email = _emailController.text.toString();
                                   String phone = _phoneController.text.toString();
                                   String password = _passwordController.text.toString();
 
-                                  _signUpBloc.signUpData(fullName, email, phone, password);
-                                }*/
+                                  _signUpBloc.signUpData(fullName, email,
+                                      phone, password, fbToken);
+                                }
                               },
                               color: Colors.white,
                               shape: RoundedRectangleBorder(

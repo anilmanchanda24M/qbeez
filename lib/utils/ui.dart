@@ -29,6 +29,7 @@ const String NO_INTERNET = 'assets/images/no_internet.svg';
 
 //home tab icons
 const String SEND_RECEIVE_MONEY = 'assets/images/send_receive_money.svg';
-const String TOP_UP = 'assets/images/send_receive_money.svg';
+const String TOP_UP = 'assets/images/top_up.svg';
 const String TRANSACTION_HISTORY = 'assets/images/transaction_history.svg';
 const String BOOKING_EVENTS = 'assets/images/calender.svg';
+final String successSignUp = 'assets/images/success_icon.svg';

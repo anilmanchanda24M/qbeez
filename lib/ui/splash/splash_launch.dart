@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:qubeez/ui/welcome.dart';
 import 'package:qubeez/utils/ui.dart';

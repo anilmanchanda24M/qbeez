@@ -4,15 +4,22 @@ import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:qubeez/model/auth/user.dart';
+import 'package:qubeez/preference/preference_keys.dart';
+import 'package:qubeez/preference/qbeez_prefs.dart';
+import 'package:qubeez/ui/auth/bloc/LogoutBloc.dart';
 import 'package:qubeez/ui/drawer/about_us.dart';
 import 'package:qubeez/ui/drawer/notification_page.dart';
 import 'package:qubeez/ui/profile_page.dart';
 import 'package:qubeez/ui/scan_page.dart';
 import 'package:qubeez/ui/wallet_page.dart';
+import 'package:qubeez/ui/welcome.dart';
+import 'package:qubeez/utils/AppUtils.dart';
 import 'package:qubeez/utils/appcolors.dart';
 
 import '../utils/ui.dart';
 import 'dashboard/bottomAppBar/fab_bottom_app_bar_notched.dart';
+import 'dialogs/LogoutDialog.dart';
 import 'home_page.dart';
 import 'inbox_page.dart';
 
@@ -28,9 +35,13 @@ class _DashboardState extends State<Dashboard> {
   int _selectedIndex = 0;
   ListQueue<int> _navigationQueue = ListQueue();
 
+  LogoutBloc _logoutBloc = LogoutBloc();
+  User _user;
+
   @override
   void initState() {
     super.initState();
+    _user = AppUtils.currentUser;
     _pages = [
       {
         'page': HomePage(),
@@ -54,6 +65,37 @@ class _DashboardState extends State<Dashboard> {
       },
     ];
     _navigationQueue.addLast(_selectedIndex);
+
+
+    _logoutBloc.logoutStream.listen((event) {
+      if (event.status == true) {
+        print("LogoutMessage -> ${event.message}");
+        QbeezPrefs.deleteUser(userKeys);
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+            WelcomeQubeez()), (Route<dynamic> route) => false);
+        AppUtils.showError(event.message, _globalKey);
+      } else {
+        AppUtils.showError(event.message, _globalKey);
+        print(event.message);
+      }
+    });
+
+    _logoutBloc.errorStream.listen((event) {
+      AppUtils.showError(event.stackTrace.toString(), _globalKey);
+    });
+
+    _logoutBloc.loadingStream.listen((event) {
+      if (context != null) {
+        if (event) {
+          print("LoadingEvent -> $event :: $context");
+          AppUtils.showLoadingDialog(context);
+        } else {
+          print("LoadingEvent -> $event :: $context");
+          // Navigator.of(globalContext, rootNavigator: true).pop();
+          Navigator.pop(context);
+        }
+      }
+    });
   }
 
   @override
@@ -110,7 +152,7 @@ class _DashboardState extends State<Dashboard> {
                         _globalKey.currentState.openDrawer();
                       },
                     ),
-                    Text("Hi Samuel!",
+                    Text("Hi ${_user.name}!",
                       style: TextStyle(fontSize: 24, color: kPrimaryColor, fontWeight: FontWeight.w700),),
 
                     ClipOval(
@@ -219,6 +261,7 @@ class _DashboardState extends State<Dashboard> {
                   createDrawerItems(context, "Logout", Icons.person_outline,
                       () {
                     Navigator.of(context).pop();
+                    getLogoutValue();
                   }),
                 ],
               ),
@@ -256,7 +299,7 @@ class _DashboardState extends State<Dashboard> {
               centerItemText: 'Scan',
               // backgroundColor: Colors.transparent,
               selectedColor: kPrimaryColor,
-              color: Colors.grey.shade400,
+              color: Colors.grey.shade800,
               notchedShape: CircularNotchedRectangle(),
               items: [
                 FABBottomAppBarItem(iconData: Icons.home, text: 'Home'),
@@ -315,7 +358,7 @@ class _DashboardState extends State<Dashboard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 24,),
-                Text("Hello, Samim",
+                Text("Hello, ${_user.name}",
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
@@ -324,7 +367,7 @@ class _DashboardState extends State<Dashboard> {
                 SizedBox(height: 4,),
                 Padding(padding: EdgeInsets.only(left: 4),
                     child: InkWell(
-                      child: Text("+974 12451 13526",
+                      child: Text("+${_user.country_code} ${_user.mobile}",
                         textAlign: TextAlign.start,
                         style: TextStyle(
                             fontSize: 12,
@@ -346,6 +389,16 @@ class _DashboardState extends State<Dashboard> {
 
         ),),
     );
+  }
+
+  Future<Null> getLogoutValue() async {
+    String returnVal = await showDialog(context: context, builder: (_) {
+      return LogoutDialog();
+    });
+
+    if (returnVal == 'logout') {
+      _logoutBloc.logout(_user.access_token);
+    }
   }
 
   Widget createDrawerItems(BuildContext context, String title, IconData icon,  GestureTapCallback onTap){

@@ -314,6 +314,12 @@
       "languageVersion": "2.1"
     },
     {
+      "name": "pretty_dio_logger",
+      "rootUri": "file:///C:/Users/hp/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/pretty_dio_logger-1.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.5"
+    },
+    {
       "name": "process",
       "rootUri": "file:///C:/Users/hp/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/process-3.0.13",
       "packageUri": "lib/",
@@ -512,7 +518,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2020-10-28T07:22:37.079052Z",
+  "generated": "2020-10-28T07:59:25.738470Z",
   "generator": "pub",
   "generatorVersion": "2.10.1"
 }

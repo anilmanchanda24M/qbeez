@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:qubeez/preference/preference_keys.dart';
+import 'package:qubeez/preference/qbeez_prefs.dart';
 import 'package:qubeez/ui/auth/bloc/LoginBloc.dart';
 import 'package:qubeez/ui/auth/forgot_password_page.dart';
 import 'package:qubeez/ui/auth/register_page.dart';
@@ -8,6 +12,8 @@ import 'package:qubeez/utils/AppUtils.dart';
 import 'package:qubeez/utils/custom_colors.dart';
 import 'package:qubeez/utils/dimen/dimen.dart';
 import 'package:qubeez/utils/ui.dart';
+
+import '../dashboard.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -33,8 +39,13 @@ class _LoginPageState extends State<LoginPage> {
     passwordVisible = false;
 
     _loginBloc.loginStream.listen((event) {
-      if (event.user != null) {
-
+      if (event.status == true) {
+        AppUtils.currentUser = event.data;
+        AppUtils.walletData = event.walletData;
+        QbeezPrefs.saveUser(userKeys, jsonEncode(event.data.toJson()));
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+            Dashboard()), (Route<dynamic> route) => false);
+        print("userAccessToken -> ${event.data.access_token}");
       } else {
         AppUtils.showError(event.message, _globalKey);
         print(event.message);
@@ -154,6 +165,15 @@ class _LoginPageState extends State<LoginPage> {
                                     Radius.circular(30.0))
                             )
                         ),
+    onChanged: (value){
+    // RegExp regExpEmail = new RegExp(emailPattern);
+    RegExp regExpMobile = new RegExp(mobilePattern);
+    if(regExpMobile.hasMatch(value)){
+    isEmail = false;
+    }else{
+    isEmail = true;
+    }
+    },
                         style: TextStyle(
                             color: Colors.purple),
                         validator: (v) {

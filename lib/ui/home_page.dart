@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:qubeez/model/auth/user.dart';
+import 'package:qubeez/utils/AppUtils.dart';
 import 'package:qubeez/utils/appcolors.dart';
 import 'package:qubeez/utils/ui.dart';
 
@@ -11,6 +13,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   final GlobalKey<ScaffoldState> _globalKey = new GlobalKey();
+  WalletData _walletData;
+
+  @override
+  void initState() {
+    super.initState();
+    _walletData = AppUtils.walletData;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                           child: RichText(
                             text: TextSpan(children: [
                               TextSpan(
-                                  text: '10000',
+                                  text: _walletData.open_balance,
                                   style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700,
                                       fontSize: 20)),
                               WidgetSpan(

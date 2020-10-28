@@ -71,7 +71,7 @@ class _SuccessTaskDialogState extends State<SuccessTaskDialog> {
           (Timer timer) => setState(
             () {
           if (_start < 1) {
-            Navigator.pop(context);
+            Navigator.pop(context, 'success');
             timer.cancel();
           } else {
             _start = _start - 1;

@@ -2,19 +2,21 @@
 import 'package:qubeez/model/auth/user.dart';
 
 class LoginResponse {
-  bool success;
+  bool status;
   String message;
-  User user;
+  User data;
+  WalletData walletData;
 
-  LoginResponse(this.success, this.message, this.user);
+  LoginResponse(this.status, this.message, this.data, this.walletData);
 
   LoginResponse.fromJson(Map<String, dynamic> json) {
-    this.success = json['success'] == null ? null : json['success'];
+    this.status = json['status'] == null ? null : json['status'];
     this.message = json['message'] == null ? null : json['message'];
-    this.user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    data = json['data'] == null ? null : User.fromJson(json['data']);
+    walletData = json['wallet_data'] == null ? null : WalletData.fromJson(json['wallet_data']);
   }
 
-  LoginResponse.fromError(String errorValue/*, int errorCode*/) {
+  LoginResponse.fromError(String errorValue, int errorCode) {
     this.message = errorValue;
     // this.errorCode = errorCode;
   }

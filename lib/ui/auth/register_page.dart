@@ -40,7 +40,7 @@ class _RegisterPageState extends State<RegisterPage> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (_) => OtpPage(event.data.mobile, event.data.verification_code)));
+                builder: (_) => OtpPage(event.data.mobile, event.data.verification_code, "register")));
       } else {
         AppUtils.showError(event.message, _globalKey);
         print(event.message);
@@ -62,7 +62,7 @@ class _RegisterPageState extends State<RegisterPage> {
     });
   }
 
-  getLocationData() async {
+   getLocationData() async {
     fbToken = await QbeezPrefs.getFBToken();
     print("Firebase Token :- :: FCMToken -> $fbToken");
   }

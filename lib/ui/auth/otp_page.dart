@@ -1,14 +1,23 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:qubeez/preference/preference_keys.dart';
+import 'package:qubeez/preference/qbeez_prefs.dart';
+import 'package:qubeez/ui/auth/bloc/ResendOtpBloc.dart';
 import 'package:qubeez/ui/auth/bloc/VerifyOtpBloc.dart';
+import 'package:qubeez/ui/auth/create_new_password_page.dart';
 import 'package:qubeez/ui/dashboard.dart';
+import 'package:qubeez/ui/dialogs/SuccessTaskDialog.dart';
 import 'package:qubeez/utils/AppUtils.dart';
 import 'package:qubeez/utils/appcolors.dart';
 import 'package:qubeez/utils/dimen/dimen.dart';
 import 'package:qubeez/utils/ui.dart';
+import 'package:sms_otp_auto_verify/sms_otp_auto_verify.dart';
 
 class OtpPage extends StatefulWidget{
-  String otp, phone;
-  OtpPage(this.phone, this.otp);
+  String otp, phone, fromPage;
+  OtpPage(this.phone, this.otp, this.fromPage);
 
     @override
     _OtpPage createState() => _OtpPage();
@@ -16,25 +25,34 @@ class OtpPage extends StatefulWidget{
 
 class _OtpPage extends State<OtpPage>{
 
+  Timer _timer;
+  int _start = 30;
+  bool resendOtpVisible = false;
+  String otpValue;
   final TextEditingController _otpFieldController = TextEditingController();
   final GlobalKey<FormState> _formStateKey = GlobalKey();
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey();
 
   VerifyOtpBloc _verifyOtpBloc = VerifyOtpBloc();
-  /* Navigator.push(context,MaterialPageRoute(
-                                                builder: (context) => Dashboard()));*/
+  ResendOtpBloc _resendOtpBloc = ResendOtpBloc();
 
   @override
   void initState() {
     super.initState();
     _otpFieldController.text = widget.otp;
+    _getAppSignature();
+    _startListeningSms();
+    startTimer();
+
+    otpValue = widget.otp;
 
     _verifyOtpBloc.verifyOtpStream.listen((event) {
       if (event.status == true) {
-        /*Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (_) => OtpPage(event.data.mobile, event.data.verification_code)));*/
+        AppUtils.currentUser = event.data;
+        AppUtils.walletData = event.walletData;
+        QbeezPrefs.saveUser(userKeys, jsonEncode(event.data.toJson()));
+        print("userAccessToken -> ${event.data.access_token}");
+        userVerifiedSuccessfully(event.message);
       } else {
         AppUtils.showError(event.message, _globalKey);
         print(event.message);
@@ -54,11 +72,47 @@ class _OtpPage extends State<OtpPage>{
         }
       }
     });
+
+    _resendOtpBloc.resendOtpStream.listen((event) {
+      if (event.status == true) {
+        otpValue = event.otp;
+
+        startTimer();
+        setState(() {
+          _otpFieldController.text = event.otp;
+          print("otp :: ${event.otp}");
+        });
+      } else {
+        AppUtils.showError(event.message, _globalKey);
+        print(event.message);
+      }
+    });
+
+    _resendOtpBloc.errorStream.listen((event) {
+      AppUtils.showError(event.stackTrace.toString(), _globalKey);
+    });
+
+    _resendOtpBloc.loadingStream.listen((event) {
+      if (context != null) {
+        if (event) {
+          AppUtils.showLoadingDialog(context);
+        } else {
+          Navigator.pop(context);
+        }
+      }
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
+    _timer.cancel();
+    _otpFieldController?.dispose();
+    _resendOtpBloc?.dispose();
+    _verifyOtpBloc?.dispose();
+
+    ///stopListening
+    SmsRetrieved.stopListening();
   }
 
   @override
@@ -195,7 +249,14 @@ class _OtpPage extends State<OtpPage>{
                                             child: Icon(Icons.arrow_right_alt, color: Colors.white,)),
                                         onTap: (){
                                           if(_formStateKey.currentState.validate()){
-                                            _verifyOtpBloc.verifyOtp(widget.phone, widget.otp);
+                                            if(widget.fromPage == 'forgot'){
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (_) => CreateNewPasswordPage(widget.phone, otpValue)));
+                                            }else{
+                                              _verifyOtpBloc.verifyOtp(widget.phone, otpValue);
+                                            }
                                           }
                                         },
                                       ),
@@ -205,11 +266,41 @@ class _OtpPage extends State<OtpPage>{
                             ],
                           ),
                         ),
-                        Padding(padding: EdgeInsets.fromLTRB(8, 20, 0, 12),
-                          child: Text(
-                            "Resend code in 10 seconds",textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),),
+                        Visibility(
+                            visible: !resendOtpVisible,
+                            child: Container(
+                              padding: EdgeInsets.fromLTRB(8, 20, 0, 12),
+                              child: RichText(
+                                text: TextSpan(
+                                    style:
+                                    TextStyle(fontSize: 14, color: Colors.white,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: 'Poppins'),
+                                    text: "Resend code in ",
+                                    children: [
+                                      TextSpan(
+                                          text: "$_start seconds",
+                                          style: TextStyle(color: Colors.white, fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                          fontFamily: 'Poppins'))
+                                    ]),
+                              ),
+                            )),
+                        Visibility(
+                            visible: resendOtpVisible,
+                            child: InkWell(
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(8, 20, 0, 12),
+                                child: Text("Resend OTP",
+                                    style: TextStyle(fontSize: 17,
+                                        fontWeight: FontWeight.w700,
+                                        fontFamily: 'Poppins',
+                                        color: Colors.white)
+                                ),
+                              ), onTap: (){
+                              _resendOtpBloc.resendOtp(widget.phone);
+                            },
+                            ))
                       ],
                     ),
                   ),
@@ -217,9 +308,50 @@ class _OtpPage extends State<OtpPage>{
             ),
           ))
         ],
-
-
       ),
     );
+  }
+
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+          (Timer timer) => setState(
+            () {
+          if (_start <= 1) {
+            resendOtpVisible = true;
+            timer.cancel();
+          } else {
+            _start = _start - 1;
+          }
+        },
+      ),
+    );
+  }
+
+  Future<Null> userVerifiedSuccessfully(String message) async {
+    String returnVal = await showDialog(context: context, builder: (_) {
+      return SuccessTaskDialog(message);
+    });
+
+    if (returnVal == 'success') {
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+          Dashboard()), (Route<dynamic> route) => false);
+    }
+  }
+
+  /// Get signature code
+  _getAppSignature() async {
+    String signature = await SmsRetrieved.getAppSignature();
+    print("App Hash Key:  $signature");
+  }
+
+  ///Here ListeningSms
+  _startListeningSms() async {
+    String otp = await SmsRetrieved.startListeningSms();
+    print("Otp value :- ${otp.replaceAll("<#>Your OTP is: ", "")}");
+    if (otp.isNotEmpty || otp != null) {
+      _otpFieldController.text = otp.replaceAll("<#>Your OTP is: ", "").split(" ")[0];
+    }
   }
 }

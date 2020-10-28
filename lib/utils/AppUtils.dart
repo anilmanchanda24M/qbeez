@@ -8,6 +8,7 @@ import 'no_internet.dart';
 
 class AppUtils{
   static User currentUser;
+  static WalletData walletData;
   static PublishSubject<bool> internetStream = PublishSubject();
 
   dispose() {

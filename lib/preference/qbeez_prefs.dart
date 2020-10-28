@@ -10,7 +10,7 @@ class QbeezPrefs{
 
   static Future<Map> getLoggedUser(String key) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return jsonDecode(prefs.getString(key));
+    return jsonDecode(prefs.getString(key)) ?? "jbjb";
   }
 
   static deleteUser(String key) async {
